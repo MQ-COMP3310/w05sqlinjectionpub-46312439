@@ -60,8 +60,9 @@ public class App {
                 if (line.matches("^[a-z]{4}$")) { // Validate the word
                     System.out.println(line);
                     wordleDatabaseConnection.addValidWord(i, line);
-                    i++;
+                   
                 }
+                i++;
             }
 
         } catch (IOException e) {
