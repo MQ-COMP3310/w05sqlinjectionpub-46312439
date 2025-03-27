@@ -54,11 +54,14 @@ public class App {
 
         try (BufferedReader br = new BufferedReader(new FileReader("resources/data.txt"))) {
             String line;
+    
             int i = 1;
             while ((line = br.readLine()) != null) {
-                System.out.println(line);
-                wordleDatabaseConnection.addValidWord(i, line);
-                i++;
+                if (line.matches("^[a-z]{4}$")) { // Validate the word
+                    System.out.println(line);
+                    wordleDatabaseConnection.addValidWord(i, line);
+                    i++;
+                }
             }
 
         } catch (IOException e) {
