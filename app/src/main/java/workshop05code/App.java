@@ -90,7 +90,7 @@ public class App {
                 System.out.print("Enter a 4 letter word for a guess or q to quit: " );
                 guess = scanner.nextLine();
             
-            }
+            
             }
         } catch (NoSuchElementException | IllegalStateException e) {
             e.printStackTrace();
