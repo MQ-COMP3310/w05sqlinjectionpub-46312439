@@ -58,16 +58,18 @@ public class App {
             int i = 1;
             while ((line = br.readLine()) != null) {
                 if (line.matches("^[a-z]{4}$")) { // Validate the word
-                    System.out.println(line);
+                    logger.info("Valid word from data.txt: " + line);
                     wordleDatabaseConnection.addValidWord(i, line);
                    
+                } else {
+                    logger.severe("Invalid word in data.txt: " + line);
                 }
                 i++;
             }
 
         } catch (IOException e) {
-            System.out.println("Not able to load . Sorry!");
-            System.out.println(e.getMessage());
+            logger.log(Level.WARNING, "Error reading data.txt", e);
+            System.out.println("Not able to load data.txt. OOPS!");
             return;
         }
 
@@ -88,6 +90,7 @@ public class App {
                     System.out.println("Sorry. This word is NOT in the the list.\n");
                 }
             } else {
+                logger.warning("Invalid guess entered by user: " + guess);
                 System.out.println("The word " + guess + " is not a valid 4 letter word.\n");
             }
 
@@ -98,6 +101,8 @@ public class App {
             }
         } catch (NoSuchElementException | IllegalStateException e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Exception while reading user input", e);
+            System.out.println("An error occurred while reading your input. Please try again later.");
         }
 
     }
