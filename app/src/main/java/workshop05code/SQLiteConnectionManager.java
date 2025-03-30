@@ -64,12 +64,12 @@ public class SQLiteConnectionManager {
         try (Connection conn = DriverManager.getConnection(databaseURL)) {
             if (conn != null) {
                 DatabaseMetaData meta = conn.getMetaData();
-                System.out.println("The driver name is " + meta.getDriverName());
-                System.out.println("A new database has been created.");
+                logger.info("The driver name is " + meta.getDriverName());
+                logger.info("A new database has been created.");
 
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.log(Level.WARNING, "Error creating new database", e);
         }
     }
 
@@ -88,7 +88,7 @@ public class SQLiteConnectionManager {
                     return true;
                 }
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
+                logger.log(Level.WARNING, "Error checking database connection", e);
                 return false;
             }
         }
@@ -113,7 +113,7 @@ public class SQLiteConnectionManager {
                 return true;
 
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
+                logger.log(Level.WARNING, "Error creating Wordle tables", e);
                 return false;
             }
         }
@@ -138,7 +138,7 @@ public class SQLiteConnectionManager {
           
                     pstmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.log(Level.WARNING, "Error adding valid word: " + word, e);
         }
 
     }
@@ -166,7 +166,7 @@ public class SQLiteConnectionManager {
             return false;
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.log(Level.WARNING, "Error checking if word is valid: " + guess, e);
             return false;
         }
 
